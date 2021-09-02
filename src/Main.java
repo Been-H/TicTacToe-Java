@@ -3,8 +3,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        TTTPVP TTT = new TTTPVP();
-        TTT.game();
+        TTTPVSC TTT = new TTTPVSC();
     }
 
 }
