@@ -7,7 +7,7 @@ public class TTTPVDC extends TTTBase {
 
     private Random rand = new Random();
 
-    private void handleComputerMove() {
+    protected void handleComputerMove() {
         List<int[]> possiblePositions = new ArrayList<int[]>();
 
         for (int row = 0; row < 3; row++) {
