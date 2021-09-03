@@ -11,6 +11,8 @@ public class TTTPVSC extends TTTPVDC {
         if (firstMove) {
             board[0][0] = currentPlayer;
             return;
+        } else {
+            MinimaxReturn result = minimax();
         }
     }
 
@@ -24,5 +26,8 @@ public class TTTPVSC extends TTTPVDC {
         } return 0;
     }
 
+    private MinimaxReturn minimax() {
+        return new MinimaxReturn(10, this);
+    }
 
 }
