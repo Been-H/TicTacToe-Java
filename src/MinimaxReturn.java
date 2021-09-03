@@ -1,15 +1,15 @@
 public class MinimaxReturn {
 
-    private int bestEval;
+    private int eval;
     private TTTPVSC board;
 
-    public MinimaxReturn(int bestEval, TTTPVSC board){
-        this.bestEval = bestEval;
+    public MinimaxReturn(int eval, TTTPVSC board){
+        this.eval = eval;
         this.board = board;
     }
 
-    public int getBestEval() {
-        return bestEval;
+    public int getEval() {
+        return eval;
     }
 
     public TTTBase getBoard() {

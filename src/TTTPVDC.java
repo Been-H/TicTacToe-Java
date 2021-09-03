@@ -7,7 +7,7 @@ public class TTTPVDC extends TTTBase {
 
     private Random rand = new Random();
 
-    protected void handleComputerMove() {
+    protected List<int[]> findOpenPositions() {
         List<int[]> possiblePositions = new ArrayList<int[]>();
 
         for (int row = 0; row < 3; row++) {
@@ -18,6 +18,13 @@ public class TTTPVDC extends TTTBase {
                 }
             }
         }
+
+        return possiblePositions;
+    }
+
+    protected void handleComputerMove() {
+        List<int[]> possiblePositions = findOpenPositions();
+
         if (possiblePositions.size() == 0) {
             return;
         }

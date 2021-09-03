@@ -15,7 +15,7 @@ public class TTTBase {
         currentPlayer = Player.X;
     }
 
-    public void createBoard() {
+    private void createBoard() {
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
                 board[row][column] = Player.NONE;
