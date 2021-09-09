@@ -4,10 +4,10 @@ public class TTTPVSC extends TTTPVDC {
 
     private boolean firstMove = true;
 
-    private TTTPVSC copyBoardFromInstance(TTTBase prevInstance) {
+    private TTTPVSC copyBoardFromInstance() {
         TTTPVSC copiedGame = new TTTPVSC();
-        copiedGame.board = prevInstance.board;
-        copiedGame.currentPlayer = prevInstance.currentPlayer;
+        copiedGame.board = this.board;
+        copiedGame.currentPlayer = this.currentPlayer;
         return copiedGame;
     }
 
@@ -19,7 +19,6 @@ public class TTTPVSC extends TTTPVDC {
         } else {
             MinimaxReturn result = minimax(this, true, 8);
             TTTPVSC chosenGame = result.getBoard();
-            chosenGame.displayBoard();
             for (int row = 0; row < 3; row++) {
                 for (int col = 0; col < 3; col++) {
                     if (board[row][col] != chosenGame.board[row][col]) {
@@ -41,7 +40,7 @@ public class TTTPVSC extends TTTPVDC {
     }
 
     private MinimaxReturn minimax(TTTPVSC game, boolean isMax, int depth) {
-        if (depth == 0 || checkForWin() || checkForTie()) {
+        if (checkForWin() || checkForTie()) {
             return new MinimaxReturn(game.staticEval(), game);
         }
 
@@ -52,29 +51,31 @@ public class TTTPVSC extends TTTPVDC {
             int maxEval = -10000;
             for (int[] childPosition: childPositions) {
                 board[childPosition[0]][childPosition[1]] = Player.X;
-                MinimaxReturn returnValues = minimax(this, false, depth - 1);
+                TTTPVSC newGame = this.copyBoardFromInstance();
+                MinimaxReturn returnValues = minimax(newGame, false, depth - 1);
                 int eval = returnValues.getEval();
                 if (eval >= maxEval) {
-                    bestGame = copyBoardFromInstance(this);
+                    bestGame = this.copyBoardFromInstance();
                     maxEval = eval;
                 }
-                game.board[childPosition[0]][childPosition[1]] = Player.NONE;
+                board[childPosition[0]][childPosition[1]] = Player.NONE;
             }
             return new MinimaxReturn(maxEval, bestGame);
         }
 
         else {
             TTTPVSC bestGame = this;
-            int minEval = 10000;
+            int minEval = -10000;
             for (int[] childPosition: childPositions) {
                 board[childPosition[0]][childPosition[1]] = Player.O;
-                MinimaxReturn returnValues = minimax(this, false, depth - 1);
+                TTTPVSC newGame = this.copyBoardFromInstance();
+                MinimaxReturn returnValues = minimax(newGame, true, depth - 1);
                 int eval = returnValues.getEval();
-                if (eval <= minEval) {
-                    bestGame = copyBoardFromInstance(this);
+                if (eval >= minEval) {
+                    bestGame = this.copyBoardFromInstance();
                     minEval = eval;
                 }
-                game.board[childPosition[0]][childPosition[1]] = Player.NONE;
+                board[childPosition[0]][childPosition[1]] = Player.NONE;
             }
             return new MinimaxReturn(minEval, bestGame);
         }

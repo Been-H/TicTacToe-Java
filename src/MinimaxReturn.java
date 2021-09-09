@@ -12,7 +12,7 @@ public class MinimaxReturn {
         return eval;
     }
 
-    public TTTBase getBoard() {
+    public TTTPVSC getBoard() {
         return board;
     }
 }
