@@ -6,9 +6,19 @@ public class TTTPVSC extends TTTPVDC {
 
     private TTTPVSC copyBoardFromInstance() {
         TTTPVSC copiedGame = new TTTPVSC();
-        copiedGame.board = this.board;
-        copiedGame.currentPlayer = this.currentPlayer;
+        copiedGame.board = copyBoard();
+        copiedGame.currentPlayer = currentPlayer.reversePlayer();
         return copiedGame;
+    }
+
+    private Player[][] copyBoard () {
+        Player[][] newBoard = new Player[3][3];
+        for (int row = 3; row < 3; row++) {
+            for (int col = 3; col < 3; col++) {
+                newBoard[row][col] = board[row][col];
+            }
+        }
+        return newBoard;
     }
 
     @Override
