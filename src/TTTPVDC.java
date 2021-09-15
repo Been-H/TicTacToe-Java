@@ -40,19 +40,7 @@ public class TTTPVDC extends TTTBase {
         super.game();
         while (true) {
 
-            handleMove(currentPlayer);
 
-            if (checkForWin()) {
-                displayBoard();
-                System.out.println("Player " + currentPlayer.asChar + " Wins!");
-                return;
-            }
-            if (checkForTie()) {
-                System.out.println("It's a tie!");
-                displayBoard();
-                return;
-            }
-            currentPlayer = currentPlayer.reversePlayer();
 
             handleComputerMove();
             displayBoard();
@@ -63,6 +51,20 @@ public class TTTPVDC extends TTTBase {
             }
             if (checkForTie()) {
                 System.out.println("It's a tie!");
+                return;
+            }
+            currentPlayer = currentPlayer.reversePlayer();
+
+            handleMove(currentPlayer);
+
+            if (checkForWin()) {
+                displayBoard();
+                System.out.println("Player " + currentPlayer.asChar + " Wins!");
+                return;
+            }
+            if (checkForTie()) {
+                System.out.println("It's a tie!");
+                displayBoard();
                 return;
             }
             currentPlayer = currentPlayer.reversePlayer();

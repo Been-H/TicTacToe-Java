@@ -6,12 +6,12 @@ public class TTTPVSC extends TTTPVDC {
 
     private TTTPVSC copyBoardFromInstance() {
         TTTPVSC copiedGame = new TTTPVSC();
-        copiedGame.board = copyBoard();
-        copiedGame.currentPlayer = currentPlayer.reversePlayer();
+        copiedGame.board = copyBoardCurrentInstance();
+        copiedGame.currentPlayer = currentPlayer;
         return copiedGame;
     }
 
-    private Player[][] copyBoard () {
+    private Player[][] copyBoardCurrentInstance () {
         Player[][] newBoard = new Player[3][3];
         for (int row = 3; row < 3; row++) {
             for (int col = 3; col < 3; col++) {
@@ -57,15 +57,15 @@ public class TTTPVSC extends TTTPVDC {
         List<int[]> childPositions = findOpenPositions();
 
         if (isMax) {
-            TTTPVSC bestGame = this;
+            TTTPVSC bestGame = copyBoardFromInstance();
             int maxEval = -10000;
             for (int[] childPosition: childPositions) {
                 board[childPosition[0]][childPosition[1]] = Player.X;
-                TTTPVSC newGame = this.copyBoardFromInstance();
+                TTTPVSC newGame = copyBoardFromInstance();
                 MinimaxReturn returnValues = minimax(newGame, false, depth - 1);
                 int eval = returnValues.getEval();
                 if (eval >= maxEval) {
-                    bestGame = this.copyBoardFromInstance();
+                    bestGame = copyBoardFromInstance();
                     maxEval = eval;
                 }
                 board[childPosition[0]][childPosition[1]] = Player.NONE;
@@ -74,15 +74,15 @@ public class TTTPVSC extends TTTPVDC {
         }
 
         else {
-            TTTPVSC bestGame = this;
+            TTTPVSC bestGame = copyBoardFromInstance();
             int minEval = -10000;
             for (int[] childPosition: childPositions) {
                 board[childPosition[0]][childPosition[1]] = Player.O;
-                TTTPVSC newGame = this.copyBoardFromInstance();
+                TTTPVSC newGame = copyBoardFromInstance();
                 MinimaxReturn returnValues = minimax(newGame, true, depth - 1);
                 int eval = returnValues.getEval();
-                if (eval >= minEval) {
-                    bestGame = this.copyBoardFromInstance();
+                if (eval <= minEval) {
+                    bestGame = copyBoardFromInstance();
                     minEval = eval;
                 }
                 board[childPosition[0]][childPosition[1]] = Player.NONE;
